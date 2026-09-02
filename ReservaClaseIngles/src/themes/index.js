@@ -1,10 +1,11 @@
 import { Platform } from 'react-native';
 
-export const color = {
+export const colors = {
     fondo: '#13e0ef',
     superficie: '#ffffff',
     texto: '#111827',
     border: '#bbecf0',
+    primario: '#007bff'
 }
 
 //Espaciado: separacion de letras y componentes
@@ -29,7 +30,7 @@ export const typography = {
     titulo: {
         fontSize: 24,
         fontWeight: 'bold'/*800*/,
-        color: color.texto,
+        color: colors.texto,
     }
 }
 

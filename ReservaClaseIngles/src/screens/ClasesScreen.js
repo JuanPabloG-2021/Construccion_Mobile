@@ -1,22 +1,29 @@
-import { IonIcons } from "@expo/vector-icons";
+import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import { useState } from "react";
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
+import { TextInput, ScrollView } from "react-native";
 
-import { TextInput } from "react-native";
-
-import { NIVELES } from "./data/clases.js";
+import { NIVELES } from "../data/clases.js";
+import NivelChip from "../components/NivelChip";
+import { colors, spacing, radius } from '../themes/index.js';
 
 
 export default function ClasesScreen({navigation}) {
 
-    const [clases, setClases] = useState('Todos');
-    const [nivel, setNivel] = useState();
+    const insets = useSafeAreaInsets();
+    const [nivel, setNivel] = useState('Todos');
+    const [busqueda, setBusqueda] = useState('');
 
     return(
-        <View>
+        <View  style={[
+        style.pantalla,
+        { paddingTop: insets.top + spacing.md }
+    ]}>
             <Text>Aplicacion de reserva para clases de ingles</Text>
             <View>
-                <IonIcons name="search" size={24} color="black"/>
+                <Ionicons name="search" size={24} color="black"/>
                 <TextInput
                     value={busqueda}
                     onChangeText={setBusqueda}
@@ -26,7 +33,7 @@ export default function ClasesScreen({navigation}) {
                 />
                 {
                     busqueda.length > 0 && (
-                        <IonIcons 
+                        <Ionicons 
                             name="close-circle" 
                             size={24} 
                             color="black" 
@@ -42,7 +49,8 @@ export default function ClasesScreen({navigation}) {
             >
                 {
                     NIVELES.map((item) =>(
-                        <NivelCip
+                        <NivelChip
+                            key={item}
                             etiqueta={item}
                             activo={item}
                             onPress={() => setNivel(item)}
@@ -55,4 +63,21 @@ export default function ClasesScreen({navigation}) {
     )
 
 }
+
+const style = StyleSheet.create({
+    pantalla: { flex: 1, backgroundColor: colors.superficie },
+    buscador: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: spacing.sm,
+        backgroundColor: colors.superficie,
+        borderRadius: radius.md,
+        paddingHorizontal: spacing.lg,
+        height: 46,
+        marginTop: spacing.lg,
+        borderWidth: 1,
+        borderColor: colors.borde,
+    },
+    input: { flex: 1, fontSize: 14, color: colors.texto, paddingVertical: 0 },
+    });
 

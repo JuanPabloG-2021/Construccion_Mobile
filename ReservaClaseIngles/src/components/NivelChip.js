@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text } from 'react-native';
-import { colors, radius, spacing } from '../theme';
+import { colors, radius, spacing } from '../themes/index.js';
 
 export default function NivelChip({ etiqueta, activo, onPress }) {
 
