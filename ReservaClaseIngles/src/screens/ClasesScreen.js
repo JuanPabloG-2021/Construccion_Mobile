@@ -1,20 +1,35 @@
+import React, {useMemo} from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useState } from "react";
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, FlatList, Pressable, Image } from 'react-native';
 import { TextInput, ScrollView } from "react-native";
 
-import { NIVELES } from "../data/clases.js";
+import { NIVELES, CLASES } from "../data/clases.js";
 import NivelChip from "../components/NivelChip";
+import Card from '../components/Card.js';
+import { useResponsive } from '../hooks/useResponsive.js';
+
 import { colors, spacing, radius } from '../themes/index.js';
 
 
 export default function ClasesScreen({navigation}) {
 
     const insets = useSafeAreaInsets();
+
     const [nivel, setNivel] = useState('Todos');
     const [busqueda, setBusqueda] = useState('');
+
+    const resultados = useMemo(() => {
+        const textoBusqueda = busqueda.trim().toLowerCase();
+        return CLASES.filter((clase) =>{
+            const cumpleNivel = nivel === 'Todos' || clase.nivel === nivel;
+            const cumpleBusqueda = textoBusqueda ||
+            textoBusqueda === '' || clase.profesor.nombre.toLowerCase().includes(textoBusqueda) || clase.titulo.toLowerCase().includes(textoBusqueda);
+            return cumpleNivel && cumpleBusqueda;
+        });
+    });
 
     return(
         <View  style={[
@@ -59,6 +74,20 @@ export default function ClasesScreen({navigation}) {
                 }
             
             </ScrollView>
+            <FlatList
+                data={resultados}
+                keyExtractor={(item) => item.id}
+                renderItem={({item}) => (
+                    <Card
+                        clase={item}
+                        onPress={()=> navigation.navigate('DetalleClaseScreen', {clase:item})}
+                    />
+                )}
+                contentContainerStyle={{
+                    paddinghorizontal,
+                    flexGrow: 1
+                }}
+            />
         </View>
     )
 
