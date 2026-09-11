@@ -17,6 +17,7 @@ import { colors, spacing, radius } from '../themes/index.js';
 export default function ClasesScreen({navigation}) {
 
     const insets = useSafeAreaInsets();
+    const {columnas, paddingHorizontal} = useResponsive();
 
     const [nivel, setNivel] = useState('Todos');
     const [busqueda, setBusqueda] = useState('');
@@ -87,6 +88,18 @@ export default function ClasesScreen({navigation}) {
                     paddinghorizontal,
                     flexGrow: 1
                 }}
+                numColumns={columnas}
+                ListEmptyComponent={() => (
+                    <EstadoVacio
+                        icono="search"
+                        titulo="No se encontraron clases"
+                        mensaje="Intenta con otros criterios de búsqueda"
+                        onAction={() => {
+                            setBusqueda('')
+                            setNivel('Todos')
+                        }}
+                    />
+                )}
             />
         </View>
     )

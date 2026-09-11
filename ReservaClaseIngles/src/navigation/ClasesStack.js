@@ -16,6 +16,15 @@ export default function ClasesStack() {
                     headerShown: false
                     }}
             />
+            <Stack.Screen 
+                name="DetalleClaseScreen" 
+                component={DetalleClaseScreen} 
+                options={{
+                    title: 'Detalle de la clase', 
+                    headerShown: true,
+                    headerBackTitle: 'Volver',
+                    }}
+            />
         </Stack.Navigator>
     )
 }
