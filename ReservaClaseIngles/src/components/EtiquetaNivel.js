@@ -1,11 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { color, spacing } from "../themes";
+import { colors, spacing, radius } from "../themes";
 
 const styles = StyleSheet.create({
     container: {
         alignSelf:'auto',
-        backgroundColor: color.fondo,
+        backgroundColor: colors.fondo,
         paddingVertical: 3,
         paddingHorizontal: spacing.md,
         borderWidth: 1,

@@ -1,14 +1,20 @@
-import { Image, Pressable, Text, View } from 'react-native';
+import { Image, Pressable, Text, View, StyleSheet } from 'react-native';
 import { formatearPrecio } from "../data/clases";
 import EtiquetaNivel from "./EtiquetaNivel";
+import { colors, spacing, radius } from '../themes/index.js';
 
-const Card= () => {
-    return(
-        <div>
-            <EtiquetaNivel nivel="Nivel 1" />
-        </div>
-    )
- }
+
+ const styles = StyleSheet.create({
+   container: {
+     backgroundColor: colors.primarioSuave,
+     borderRadius: radius.md,
+     padding: spacing.md,
+     margin: spacing.sm,
+   },
+   pressed: {
+     backgroundColor: colors.superficiePresionada,
+   },
+ });
 
  export default function Card({clase, onPress}){
     return(

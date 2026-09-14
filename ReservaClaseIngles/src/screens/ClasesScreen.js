@@ -3,13 +3,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useState } from "react";
-import { Text, View, StyleSheet, FlatList, Pressable, Image } from 'react-native';
+import { Text, View, StyleSheet, FlatList, Pressable, Image, ScrollView } from 'react-native';
 import { TextInput, ScrollView } from "react-native";
 
 import { NIVELES, CLASES } from "../data/clases.js";
 import NivelChip from "../components/NivelChip";
 import Card from '../components/Card.js';
-import { useResponsive } from '../hooks/useResponsive.js';
+import  useResponsive  from '../hooks/useResponsive.js';
 
 import { colors, spacing, radius } from '../themes/index.js';
 
@@ -17,7 +17,7 @@ import { colors, spacing, radius } from '../themes/index.js';
 export default function ClasesScreen({navigation}) {
 
     const insets = useSafeAreaInsets();
-    const {columnas, paddingHorizontal} = useResponsive();
+    const { columns: columnas, paddingHorizontal } = useResponsive();
 
     const [nivel, setNivel] = useState('Todos');
     const [busqueda, setBusqueda] = useState('');
@@ -34,7 +34,7 @@ export default function ClasesScreen({navigation}) {
 
     return(
         <View  style={[
-        style.pantalla,
+        styles.pantalla,
         { paddingTop: insets.top + spacing.md }
     ]}>
             <Text>Aplicacion de reserva para clases de ingles</Text>
@@ -85,7 +85,7 @@ export default function ClasesScreen({navigation}) {
                     />
                 )}
                 contentContainerStyle={{
-                    paddinghorizontal,
+                    paddingHorizontal,
                     flexGrow: 1
                 }}
                 numColumns={columnas}
@@ -106,7 +106,7 @@ export default function ClasesScreen({navigation}) {
 
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     pantalla: { flex: 1, backgroundColor: colors.superficie },
     buscador: {
         flexDirection: 'row',

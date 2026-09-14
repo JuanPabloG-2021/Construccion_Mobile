@@ -1,12 +1,12 @@
 import React, {useState, useMemo} from 'react';
-import { Text, View, StyleSheet, FlatList, Pressable, Image, Alert } from 'react-native';
+import { Text, View, StyleSheet, FlatList, Pressable, Image, Alert, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {EtiquetaNivel} from '../components/EtiquetaNivel.js';
-import { NIVELES, CLASES } from "../data/clases.js";
+import { NIVELES, CLASES, formatearPrecio } from "../data/clases.js";
 import NivelChip from "../components/NivelChip";
-import { useResponsive } from '../hooks/useResponsive.js';
-import { colors, spacing, typography, sombra } from '../themes/index.js';
+import  useResponsive  from '../hooks/useResponsive.js';
+import { colors, spacing, typography, sombra, radius } from '../themes/index.js';
 
 export default function DetalleClaseScreen({route, navigation}) {
     const {clase} = route.params;
@@ -22,16 +22,43 @@ export default function DetalleClaseScreen({route, navigation}) {
                 ShowsVerticalScrollIndicator={false}
                 contentContainerStyle={{paddingBottom:120}}
             >
-                <Image source={{uri:clase.imagen}} resizeMode="cover" style={styles.portada}/>
-
-                //quiere la foto del profesor y al lado de la foto del profesor quiere el nombre y apellido
-                //quiere el precio
-                //duracion
-                //los cupos
-                //horario
-                //boton que se llame Reservar Clase.
+              
+              <View>
+                <Text>{clase.titulo}</Text>
+                <Text>{clase.descripcion}</Text>
+              </View>
+              <View style={styles.dato}>
+                <Ionicons name="today-outline" size={24} color={colors.primario} />
+                <Text style={styles.datoValor}>Horarios: {clase.horarios}</Text>
+              </View>
+              <Image source={{uri:clase.imagen}} resizeMode="cover" style={styles.portada}/>
+                <ScrollView
+                ShowsVerticalScrollIndicator={false}
+                contentContainerStyle={{paddingBottom:60}}
+                >
+                <View style={styles.datos}>
+                  <Image source={{uri:clase.profesor.foto}} style={{width: 100,height: 100,}}/>
+                  <Text style={styles.profesorNombre}>{clase.profesor.nombre} {clase.profesor.apellido}</Text>
+                  <Pressable style={styles.botonReservar}>
+                        <Text>Reservar Clase</Text>
+                      </Pressable>
+                </View>
+                </ScrollView>
+                <View style={styles.datos}>
+                    <View style={styles.dato}>
+                        <Ionicons name="time-outline" size={24} color={colors.primario} />
+                        <Text style={styles.datoValor}>{clase.duracion}</Text>
+                    </View>
+                    <View style={styles.dato}>
+                        <Ionicons name="people-outline" size={24} color={colors.primario} />
+                        <Text style={styles.datoValor}>{clase.cupos}</Text>
+                    </View>
+                    <View style={styles.dato}>
+                        <Ionicons name="cash-outline" size={24} color={colors.primario} />
+                        <Text style={styles.datoValor}>{formatearPrecio(clase.precio)}</Text>
+                    </View>
+                </View>
             </ScrollView>
-            <Text>{clase.titulo}</Text>
         </View>
     )
 }    
@@ -73,4 +100,17 @@ const styles = StyleSheet.create({
     paddingTop: spacing.lg
   },
   precio: { fontSize: 18, fontWeight: '800', color: colors.primario },
+  botonReservar: {
+    backgroundColor: colors.primario,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.lg,
+    borderRadius: radius.md,
+  },
 });
+
+ //quiere la foto del profesor y al lado de la foto del profesor quiere el nombre y apellido
+                //quiere el precio
+                //duracion
+                //los cupos
+                //horario
+                //boton que se llame Reservar Clase.

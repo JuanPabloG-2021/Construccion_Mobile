@@ -14,7 +14,7 @@ export const CLASES = [
     modalidad: 'Virtual',
     rating: 4.8,
     cupos: 6,
-    horarios: ['Lun 7:00 a.m.', 'Mié 7:00 a.m.', 'Vie 6:00 p.m.'],
+    horarios: ['Lun 7:00 a.m. ', 'Mié 7:00 a.m. ', 'Vie 6:00 p.m.'],
   },
   {
     id: '2',

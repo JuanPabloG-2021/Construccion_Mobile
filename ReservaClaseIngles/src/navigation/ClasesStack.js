@@ -2,6 +2,7 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import ClasesScreen from '../screens/ClasesScreen';
+import DetalleClaseScreen from '../screens/DetalleClaseScreen';
 
 const Stack = createNativeStackNavigator();
 
