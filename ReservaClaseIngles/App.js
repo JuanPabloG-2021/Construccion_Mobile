@@ -4,6 +4,7 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import ClasesStack from './src/navigation/ClasesStack.js';
+import MainTabs from './src/navigation/MainTabs.js';
 import { colors } from './src/themes/index.js';
 
 
@@ -13,7 +14,7 @@ export default function App() {
     <SafeAreaProvider>
       <NavigationContainer theme={temaNavegacion}>
         <StatusBar style="dark"/>
-        <ClasesStack/>
+        <MainTabs/>
       </NavigationContainer>
     </SafeAreaProvider>
   );

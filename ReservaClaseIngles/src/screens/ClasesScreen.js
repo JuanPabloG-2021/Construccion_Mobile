@@ -4,10 +4,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useState } from "react";
 import { Text, View, StyleSheet, FlatList, Pressable, Image, ScrollView } from 'react-native';
-import { TextInput, ScrollView } from "react-native";
+import { TextInput } from "react-native";
 
 import { NIVELES, CLASES } from "../data/clases.js";
 import NivelChip from "../components/NivelChip";
+import EstadoVacio from '../components/EstadoVacio.js';
 import Card from '../components/Card.js';
 import  useResponsive  from '../hooks/useResponsive.js';
 
@@ -26,7 +27,7 @@ export default function ClasesScreen({navigation}) {
         const textoBusqueda = busqueda.trim().toLowerCase();
         return CLASES.filter((clase) =>{
             const cumpleNivel = nivel === 'Todos' || clase.nivel === nivel;
-            const cumpleBusqueda = textoBusqueda ||
+            const cumpleBusqueda =
             textoBusqueda === '' || clase.profesor.nombre.toLowerCase().includes(textoBusqueda) || clase.titulo.toLowerCase().includes(textoBusqueda);
             return cumpleNivel && cumpleBusqueda;
         });
@@ -38,9 +39,10 @@ export default function ClasesScreen({navigation}) {
         { paddingTop: insets.top + spacing.md }
     ]}>
             <Text>Aplicacion de reserva para clases de ingles</Text>
-            <View>
+            <View style={styles.buscador}>
                 <Ionicons name="search" size={24} color="black"/>
                 <TextInput
+                    style={styles.input}
                     value={busqueda}
                     onChangeText={setBusqueda}
                     placeholder="Buscar clases..."
@@ -49,12 +51,7 @@ export default function ClasesScreen({navigation}) {
                 />
                 {
                     busqueda.length > 0 && (
-                        <Ionicons 
-                            name="close-circle" 
-                            size={24} 
-                            color="black" 
-                            onPress={() => setBusqueda('')}
-                        />
+                        <Ionicons name="close-circle" color="black" size={24} onPress={() => setBusqueda('')}/>
                     )
                 }
             </View>
@@ -111,14 +108,15 @@ const styles = StyleSheet.create({
     buscador: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: spacing.sm,
+        gap: spacing.md,
         backgroundColor: colors.superficie,
         borderRadius: radius.md,
         paddingHorizontal: spacing.lg,
         height: 46,
-        marginTop: spacing.lg,
+        marginTop: spacing.sm,
+        marginBottom: spacing.sm,
         borderWidth: 1,
-        borderColor: colors.borde,
+        borderColor: colors.border,
     },
     input: { flex: 1, fontSize: 14, color: colors.texto, paddingVertical: 0 },
     });
