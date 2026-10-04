@@ -19,12 +19,13 @@ export function ReservasProvider({children}){
                 }
             }
             catch (error) {
-                console.log('Error al cargar las reservas:', error);
+                console.log('Error al cargar las reservas: ', error);
             }
             finally{
                 setLoading(false);
             }
         }
+        loadReservations();
     }, []);
 
     //Guardar cada vez que cambie el arreglo de reservas
@@ -40,7 +41,7 @@ export function ReservasProvider({children}){
             id: clase.id + ' ' + horario,
             title: clase.titulo,
             level: clase.nivel,
-            teacher: clase.profesor.nombre + ' ' + clase.profesor.apellido,
+            teacher: clase.profesor.nombre,
             price: clase.precio,
             schedule: horario,
             creadoEn: new Date().toISOString()
@@ -54,4 +55,15 @@ export function ReservasProvider({children}){
             return [newReservation, ...prevReservations]
         })
     },[])    
+
+    return (
+        <ReservasContext.Provider
+            value={{
+            reservas,
+            loading,
+            addReservation
+            }}>
+                {children}
+        </ReservasContext.Provider>
+    );
 }//llave de cierre ReservasProvider

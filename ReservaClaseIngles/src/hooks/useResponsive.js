@@ -3,7 +3,7 @@ import {useWindowDimensions} from 'react-native';
 export default function useResponsive() {
     const {width, height} = useWindowDimensions();
     const isLandscape = width >= 768;
-    const isPortrait = height >= width;
+    const isPortrait = height < width;
     return {
         width,
         height,

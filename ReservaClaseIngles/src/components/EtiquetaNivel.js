@@ -17,8 +17,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.fondo,
         paddingVertical: 3,
         paddingHorizontal: spacing.md,
-        borderWidth: 1,
-        borderRadius: radius.sm,
+        borderWidth: 1
     },
     text: {
         fontSize: 11,

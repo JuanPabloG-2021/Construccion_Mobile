@@ -15,6 +15,7 @@ import { colors, spacing, radius, typography } from '../themes/index.js';
            <Image source={{uri: clase.imagen}} style={{width:'100%', height:190}}/>
            <View>
                 <EtiquetaNivel nivel={clase.nivel} />
+                <Text>{clase.titulo}</Text>
                 <Text>{clase.nivel}</Text>
                 <Text>{clase.profesor.nombre}</Text>
                 <Text>{formatearPrecio(clase.precio)}</Text>

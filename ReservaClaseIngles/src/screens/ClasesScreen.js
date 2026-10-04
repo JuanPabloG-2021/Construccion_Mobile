@@ -58,7 +58,8 @@ export default function ClasesScreen({navigation}) {
             <ScrollView
                 horizontal
                 showHorizontalScrollIndicator={false}
-                style={{flexGrow: 0}}
+                contentContainerStyle={{paddingBotom: spacing.sm}}
+                style={{flexGrow: 0 , marginBottom: spacing.sm, flexShrink: 0, paddingVertical: 6}}
             >
                 {
                     NIVELES.map((item) =>(
@@ -110,13 +111,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: spacing.md,
         backgroundColor: colors.superficie,
-        borderRadius: radius.md,
+        borderRadius: radius.sm,
         paddingHorizontal: spacing.lg,
         height: 46,
         marginTop: spacing.sm,
         marginBottom: spacing.sm,
-        borderWidth: 1,
-        borderColor: colors.border,
+        borderWidth: 0.5
     },
     input: { flex: 1, fontSize: 14, color: colors.texto, paddingVertical: 0 },
     });
