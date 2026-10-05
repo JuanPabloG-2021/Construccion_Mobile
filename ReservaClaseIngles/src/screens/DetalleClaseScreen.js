@@ -23,7 +23,12 @@ export default function DetalleClaseScreen({ route, navigation }) {
 
   const reservar = () => {
     if (agotada) return;
-    addReservation(clase, horario);
+    const results = addReservation(clase, horario);
+    if (!results.ok) {
+      Alert.alert('Error al reservar', results.message);
+      return;
+    }
+    console.log(clase.titulo, 'Horario:', horario);
     setCupos((actual) => Math.max(actual - 1, 0));
     Alert.alert(
     'Clase reservada',
@@ -110,6 +115,7 @@ export default function DetalleClaseScreen({ route, navigation }) {
           <View style={styles.horarios}>
             {clase.horarios.map((h) => {
               const activo = h === horario;
+              console.log('Horario:', h, 'Activo:', activo);
               return (
                 <Pressable
                   key={h}

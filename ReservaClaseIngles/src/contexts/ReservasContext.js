@@ -42,11 +42,59 @@ export function ReservasProvider({children}){
             title: clase.titulo,
             level: clase.nivel,
             teacher: clase.profesor.nombre,
+            avatar: clase.profesor.foto,
             price: clase.precio,
+            duration: clase.duracion,
             schedule: horario,
             creadoEn: new Date().toISOString()
         }
+        const convertHoursToMinutes = (horaTexto) => {
+        const [minutesAndHours, periodo] = horaTexto.split(' ');
+        const [Hours, minutes  ] = minutesAndHours.split(':');
+
+        let hour24 = parseInt(Hours);
+        const minutesNumber = parseInt(minutes);
+
+        if (periodo === 'p.m.' && hour24 !== 12) {
+        hour24 += 12;
+        }
+        
+        if (periodo === 'a.m.' && hour24 === 12) {
+        hour24 = 0;
+        }
+        
+        return hour24 * 60 + minutesNumber;
+        };
+
+        //sacar el dia Nuevo y la Hora inicio y Fin Nuevo
+        const [newDay, ...remainingSchedule] = horario.split(' ');
+        const newHour = convertHoursToMinutes(remainingSchedule.join(' '));
+        const newEndTime = newHour + clase.duracion;
+
+        //Verificar si hay conflicto con las reservas existentes
+        const verifyConflict = reservas.some((reserva) => {
+            const [existingDay, ...existingSchedule] = reserva.schedule.split(' ');
+            const existingHour = convertHoursToMinutes(existingSchedule.join(' '));
+            const existingEndTime = existingHour + reserva.duration;
+            return (
+                existingDay === newDay &&
+                newHour < existingEndTime &&
+                newEndTime > existingHour
+            );
+        });
+
+        console.log('Nuevo horario:', horario);
+        reservas.forEach((reserva) => {
+            console.log('Horario reservado:', reserva.schedule);
+        });
+        console.log('Conflicto de horario:', verifyConflict);
         let results = {ok:true}
+        if(verifyConflict){
+            return{
+                results: {ok:false},
+                message: 'Conflicto de horario con otra reserva existente.'
+            };
+        }
         setReservas((prevReservations) => {
             if(prevReservations.some((r)=> r.id === newReservation.id)){
                 results = {ok: false}
@@ -54,16 +102,32 @@ export function ReservasProvider({children}){
             }
             return [newReservation, ...prevReservations]
         })
-    },[])    
+
+        return {
+        ok: true
+        };
+    },[reservas]);
+
+    const clearReservations = async () => {
+        await AsyncStorage.removeItem(KEY_RESERVATIONS);
+        setReservas([]);
+    };
+
+    const removeReservation = useCallback((reservationId) => {
+        setReservas((prevReservations) => prevReservations.filter((reserva) => reserva.id !== reservationId));
+    }, []);
 
     return (
         <ReservasContext.Provider
             value={{
             reservas,
             loading,
-            addReservation
+            addReservation,
+            clearReservations,
+            removeReservation
             }}>
                 {children}
         </ReservasContext.Provider>
     );
+
 }//llave de cierre ReservasProvider

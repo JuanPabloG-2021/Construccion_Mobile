@@ -10,11 +10,11 @@ export const CLASES = [
     profesor: { nombre: 'Laura Gómez', pais: 'Colombia', foto: 'https://i.pravatar.cc/200?img=45' },
     imagen: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80',
     precio: 32000,
-    duracion: 50,
+    duracion: 90,
     modalidad: 'Virtual',
     rating: 4.8,
     cupos: 6,
-    horarios: ['Lun 7:00 a.m. ', 'Mié 7:00 a.m. ', 'Vie 6:00 p.m.'],
+    horarios: ['Lun 7:00 a.m.', 'Mié 7:00 p.m. ', 'Vie 5:00 p.m.'],
   },
   {
     id: '2',
@@ -36,7 +36,7 @@ export const CLASES = [
     titulo: 'Inglés para entrevistas',
     nivel: 'Avanzado',
     descripcion:
-      'Prepara tu hoja de vida, responde preguntas técnicas y practica entrevistas simuladas en inglés.',
+      'Prepara tu hoja de vida, responde preguntas técnicas y practica entrevistas simuladas en inglés. ESTA CLASE TIENE CONFLICTO CON id=1 Mié 7:00 p.m. YA QUE LA DURACION ES DE 90 MIN',
     profesor: { nombre: 'Sofía Ramírez', pais: 'México', foto: 'https://i.pravatar.cc/200?img=32' },
     imagen: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80',
     precio: 58000,
@@ -66,7 +66,7 @@ export const CLASES = [
     titulo: 'Pronunciación y acento',
     nivel: 'Intermedio',
     descripcion:
-      'Trabaja sonidos difíciles, entonación y ritmo para que te entiendan a la primera.',
+      'Trabaja sonidos difíciles, entonación y ritmo para que te entiendan a la primera. ESTA CLASE TIENE CONFLICTO CON id=1 Vie 5:00 p.m.',
     profesor: { nombre: 'Emma Clarke', pais: 'Reino Unido', foto: 'https://i.pravatar.cc/200?img=24' },
     imagen: 'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=800&q=80',
     precio: 42000,
