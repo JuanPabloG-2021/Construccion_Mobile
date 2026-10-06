@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
 
     input: {
         backgroundColor: colors.superficie,
-        borderWidth: 1,
-        borderColor: colors.borde,
+        borderWidth: 2,
+        borderColor: colors.primarioSuave,
         borderRadius: radius.md,
         paddingHorizontal: spacing.md,
         paddingVertical: spacing.sm,

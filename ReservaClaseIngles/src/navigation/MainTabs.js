@@ -5,7 +5,7 @@ import {Ionicons} from '@expo/vector-icons';
 
 import ClasesStack from './ClasesStack';
 import ReservationScreen from '../screens/ReservationScreen';
-import CreateProfile from '../screens/CreateProfile';
+import ProfileStack from './ProfileStack'
 
 const Tab = createBottomTabNavigator();
 
@@ -32,7 +32,7 @@ export default function MainTabs() {
             />
             <Tab.Screen 
                 name="Profile" 
-                component={CreateProfile}
+                component={ProfileStack}
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="person-outline" color={color} size={size} />

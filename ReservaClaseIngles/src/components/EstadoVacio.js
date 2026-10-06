@@ -16,7 +16,6 @@ export default function EstadoVacio({icono='calendar-outline', mensaje='No hay r
 }
 const styles = StyleSheet.create({
   contenedor: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: spacing.xxl,
