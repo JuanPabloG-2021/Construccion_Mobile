@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Pressable, StyleSheet } from 'react-native'
+import { View, Text, Pressable, StyleSheet, Alert } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import {useState} from 'react' 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -9,8 +9,12 @@ import  useResponsive  from '../hooks/useResponsive.js';
 import { colors, radius, spacing } from '../themes/index.js';
 import useProfile from '../hooks/useProfile.js';
 
-export default function CreateProfile() {
-    const [user, setUser] = useState([]);
+export default function CreateProfile({navigation}) {
+    const [user, setUser] = useState({
+        nombre: '',
+        correo: '',
+        telefono: ''
+    });
     const { paddingHorizontal, isLandscape } = useResponsive();
     const {profile, createProfile} = useProfile();
 
@@ -19,19 +23,40 @@ export default function CreateProfile() {
         {
             key: 'nombre',
             label: 'Nombre del usuario',
-            placeholder: 'Ingresa tu nombre'
+            placeholder: 'Ingresa tu nombre',
+            keyboard: 'default'
         },
         {
             key: 'correo',
             label: 'Correo electrónico',
-            placeholder: 'Ingresa tu correo electrónico'
+            placeholder: 'Ingresa tu correo electrónico',
+            keyboard:'email-address'
         },
         {
             key: 'telefono',
             label: 'Número de teléfono',
-            placeholder: 'Ingresa tu número de teléfono'
+            placeholder: 'Ingresa tu número de teléfono',
+            keyboard:'phone-pad'
         }
     ];
+    const handleCreateProfile = async () => {
+        const hayCamposVacios = Object.values(user).some(
+        (value) => !value || value.trim() === ''
+        );
+        if (hayCamposVacios) {
+        Alert.alert(
+        'Perfil incompleto',
+        'No se pudo crear el perfil porque uno o más campos están vacíos.'
+        );
+        return;
+        }
+        await createProfile(user);
+        Alert.alert(
+        '¡Gracias!',
+        'El perfil ha sido creado correctamente.'
+        );
+        navigation.navigate('ProfileScreen');
+        };
     
     console.log(user)
 
@@ -54,15 +79,16 @@ export default function CreateProfile() {
                             <ProfileTextInput
                                 key={item.key}
                                 label={item.label}
-                                value={item.value}
+                                value={user[item.key]}
                                 onChangeText={(text) => setUser({...user, [item.key]: text})}
                                 placeholder={item.placeholder}
+                                keyboard={item.keyboard}
                             />
                         ))}
                     </View>
                     <Pressable 
                         style={styles.botonReservar}
-                        onPress={()=>{createProfile(user)}}
+                        onPress={()=>{handleCreateProfile();}}
                     >
                         <Text style={styles.botonTexto}>Guardar</Text>
                     </Pressable>

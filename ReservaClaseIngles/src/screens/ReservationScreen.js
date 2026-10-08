@@ -7,8 +7,29 @@ import useReserva from '../hooks/useReserva.js';
 import { colors, radius, spacing } from '../themes/index.js';
 import { formatearPrecio } from "../data/clases.js";
 
-export default function ReservationScreen() {
+export default function ReservationScreen({navigation}) {
     const { reservas, loading, clearReservations, removeReservation } = useReserva();
+
+    console.log(reservas)
+    if(!reservas){
+        return (
+            <View style={styles.pantalla}>
+                <View style={styles.contenidoVacio}>
+                    <EstadoVacio
+                        icono="calendar-clear-outline"
+                        titulo="Aún no has reservado ninguna clase"
+                        mensaje="Explora nuestro catalogo de clases para realizar tu reserva"
+                    />
+                    <Pressable
+                        style={styles.boton}
+                        onPress={() => navigation.navigate('ClasesScreen')}    
+                    >
+                        <Text style={styles.botonTexto}>Explorar clases</Text>
+                    </Pressable>
+                </View>
+            </View>
+        );
+    }
 
     return (
         <View

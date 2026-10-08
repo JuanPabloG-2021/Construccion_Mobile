@@ -33,7 +33,7 @@ export default function ProfileScreen({navigation}) {
     if (!profile) {
         return (
             <View style={styles.pantalla}>
-                <View style={styles.contenido}>
+                <View style={styles.contenidoVacio}>
                     <EstadoVacio
                         icono="person-outline"
                         titulo="Aún no tienes un perfil"
@@ -62,7 +62,7 @@ export default function ProfileScreen({navigation}) {
                         etiqueta={item.etiqueta}
                         valor={profile[item.key]}
                         icono={item.icono}
-                        onPress={() => {}}
+                        onPress={() => navigation.navigate('CreateProfileScreen')}   
                     />
                 ))}
                 
@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
         marginTop: -90,
         borderWidth: 4,
         borderColor: colors.superficie,
+        marginBottom: spacing.md,
     },
     contenido: {
         marginTop: -spacing.lg,
@@ -93,6 +94,9 @@ const styles = StyleSheet.create({
         backgroundColor: colors.superficie,
         borderTopLeftRadius: radius.xl,
         borderTopRightRadius: radius.xl,
+    },
+    contenidoVacio: {
+        alignItems: 'center',
     },
     pantalla: {
         flex: 1,

@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default function ProfileTextInput({ label, value, onChangeText, placeholder }) {
+export default function ProfileTextInput({ label, value, onChangeText, placeholder,keyboard }) {
     return (
         <View style={styles.campo}>
             <Text style={styles.label}>
@@ -40,6 +40,7 @@ export default function ProfileTextInput({ label, value, onChangeText, placehold
                 placeholder={placeholder}
                 autoCorrect={false}
                 autoComplete="off"
+                keyboardType={keyboard}
             />
         </View>
     )
