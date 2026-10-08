@@ -34,6 +34,10 @@ export default function useAsyncStorage(key, initialValue){
             }
         }, [key]);
 
-    return [storedValue, update, ready];
+    const clear = useCallback((storedValue) => {
+            setStoredValue(null);
+        }, []);
+
+    return [storedValue, update, ready, clear];
     
 }

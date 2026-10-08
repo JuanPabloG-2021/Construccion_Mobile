@@ -7,9 +7,13 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import ProfileTextInput from '../components/ProfileTextInput.js'
 import  useResponsive  from '../hooks/useResponsive.js';
 import { colors, radius, spacing } from '../themes/index.js';
+import useProfile from '../hooks/useProfile.js';
 
 export default function CreateProfile() {
+    const [user, setUser] = useState([]);
     const { paddingHorizontal, isLandscape } = useResponsive();
+    const {profile, createProfile} = useProfile();
+
     const insets = useSafeAreaInsets();
     const campos = [
         {
@@ -28,7 +32,8 @@ export default function CreateProfile() {
             placeholder: 'Ingresa tu número de teléfono'
         }
     ];
-    const [usuario, setUsuario] = useState([]);
+    
+    console.log(user)
 
     return (
         <View>
@@ -50,12 +55,15 @@ export default function CreateProfile() {
                                 key={item.key}
                                 label={item.label}
                                 value={item.value}
-                                onChangeText={(text) => setUsuario({...usuario, [item.key]: text})}
+                                onChangeText={(text) => setUser({...user, [item.key]: text})}
                                 placeholder={item.placeholder}
                             />
                         ))}
                     </View>
-                    <Pressable style={styles.botonReservar}>
+                    <Pressable 
+                        style={styles.botonReservar}
+                        onPress={()=>{createProfile(user)}}
+                    >
                         <Text style={styles.botonTexto}>Guardar</Text>
                     </Pressable>
                 </View>
