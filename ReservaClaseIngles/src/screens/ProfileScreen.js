@@ -65,12 +65,13 @@ export default function ProfileScreen({navigation}) {
                         onPress={() => navigation.navigate('CreateProfileScreen')}   
                     />
                 ))}
-                
 
                 <Pressable
+                    style={styles.cancelButton}
                     onPress={() => {clearData();}}
+                    
                 >
-                    <Text>Clear Reservations</Text>
+                    <Text style={styles.cancelButtonText}>Clear Reservation</Text>
                 </Pressable>
             </View>
         </View>
@@ -114,5 +115,16 @@ const styles = StyleSheet.create({
         color: colors.superficie,
         fontSize: 16,
         fontWeight: '700',
+    },
+     cancelButton: {
+        paddingVertical: spacing.sm,
+        paddingHorizontal: spacing.md,
+        borderRadius: radius.md,
+        borderWidth: 1,
+        borderColor: colors.peligro,
+    },
+    cancelButtonText: {
+        color: colors.peligro,
+        fontWeight: '600',
     },
 });

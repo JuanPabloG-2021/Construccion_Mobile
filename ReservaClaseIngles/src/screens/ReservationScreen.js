@@ -78,9 +78,14 @@ export default function ReservationScreen({navigation}) {
                 )}
             />
             <Pressable
+                style={styles.cancelButton}
                 onPress={() => {clearReservations();}}
             >
-                <Text>Clear Reservations</Text>
+                <Text
+                    style={styles.cancelButtonText}
+                >
+                    Clear Reservations
+                </Text>
             </Pressable>
         </View>
     )
